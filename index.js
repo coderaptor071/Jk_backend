@@ -28,7 +28,7 @@ mongoose
 
 const corsConfig = {
   credentials: true,
-  origin: "http://31.187.72.242:3000",
+  origin: "https://jkharbels.com",
 };
 app.use(cors(corsConfig));
 

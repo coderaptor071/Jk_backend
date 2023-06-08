@@ -32,7 +32,7 @@ const handleLogin = async (req, res) => {
                     maxAge: 24 * 60 * 60 * 1000,
                     hostOnly: false,
                 });
-                res.header("Access-Control-Allow-Origin", "http://31.187.72.242:3000");
+                res.header("Access-Control-Allow-Origin", "https://jkharbels.com");
                 res.status(200).send('login successful');
             } else {
                 res.status(401).send("wrong password");
