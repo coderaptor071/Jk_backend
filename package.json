@@ -3,8 +3,8 @@
   "version": "1.2.0",
   "description": "jkBackend v1.2",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "author": "Simarpal Singh",
   "license": "Private License",
