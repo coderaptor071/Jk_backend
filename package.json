@@ -1,12 +1,12 @@
 {
-  "name": "phase2",
-  "version": "1.0.0",
-  "description": "HeadsUp phase2",
+  "name": "jkBackend",
+  "version": "1.2.0",
+  "description": "jkBackend v1.2",
   "scripts": {
-    "start": "node server/index.js",
-    "dev": "nodemon server/index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
-  "author": "Social-Engine",
+  "author": "Simarpal Singh",
   "license": "Private License",
   "dependencies": {
     "bcrypt": "^5.1.0",
