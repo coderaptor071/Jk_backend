@@ -10,7 +10,7 @@ const { sendEmail } = require('../utils/HelperFunctions.js')
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "../../tmp");
+    cb(null, "uploads");
   },
   filename: (req, file, cb) => {
     if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
@@ -49,18 +49,18 @@ route.post("/saveProduct", upload.single("productImage"), async (req, res) => {
   try {
     console.log("__dirname-------------->imp", __dirname)
     console.log("REQ.FILE.PATH-------------->imp", req.file.path)
-    let imgPath = path.join(__dirname + '../' + '/tmp/' + req.file.filename)
-    console.log("imgPath11111111", imgPath)
+    let imgPath = path.join(__dirname + '../' + '../' + '/uploads/' + req.file.filename)
+    // console.log("imgPath11111111", imgPath)
 
-    imgPath = path.join(__dirname + '/tmp/' + req.file.filename)
-    console.log("imgPath3333333", imgPath)
-    imgPath = path.join(__dirname + '../' + '../' + '../' + '/tmp/' + req.file.filename)
-    console.log("imgPath44444444444", imgPath)
-    imgPath = path.join(__dirname + '../' + '../' + '/tmp/' + req.file.filename)
+    // imgPath = path.join(__dirname + '/tmp/' + req.file.filename)
+    // console.log("imgPath3333333", imgPath)
+    // imgPath = path.join(__dirname + '../' + '../' + '../' + '/tmp/' + req.file.filename)
+    // console.log("imgPath44444444444", imgPath)
+    // imgPath = path.join(__dirname + '../' + '../' + '/tmp/' + req.file.filename)
 
-    console.log("imgPath222222222222", imgPath)
+    // console.log("imgPath222222222222", imgPath)
     let tmp = {
-      data: fs.readFileSync(path.resolve(__dirname, req.file.path)),
+      data: fs.readFileSync(imgPath),
       contentType: "image/png",
     }
     const temp = await productModel.find({ name: name, price: price })
