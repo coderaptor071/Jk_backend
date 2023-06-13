@@ -9,6 +9,8 @@ const { template } = require("./utils/Constants");
 const chalk = require("chalk");
 const config = require("./config/key");
 const userRoutes = require("./routes/users");
+const jsonParser = bodyParser.json();
+
 String.prototype.log = function (data) {
   return console.log(data);
 };
@@ -41,6 +43,15 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use("/", userRoutes);
+
+app.post('/by-pass-api', jsonParser, async (req, response) => {
+  const { url } = req.body;
+  console.log("url", url)
+  // const data = { data: req.body.data };
+  const result = await axios.get(url);
+  response.send(result);
+});
+
 
 //use this to show the image you have in node js server to client (react js)
 //https://stackoverflow.com/questions/48914987/send-image-path-from-node-js-express-server-to-react-client

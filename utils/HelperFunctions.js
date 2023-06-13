@@ -45,31 +45,3 @@ sendEmail = async (msg) => {
 };
 
 
-
-const sendResponse = (
-  res,
-  status = false,
-  statusCode = 200,
-  statusMessage = "Ok",
-  data = null,
-  totalRecords
-) => {
-  // time taken to send the response
-  console.time(statusMessage);
-  let resSchema = {
-    status,
-    statusCode,
-    statusMessage,
-    totalRecords: totalRecords ? totalRecords : 0,
-  };
-  if (data != null) {
-    resSchema.data = data;
-  }
-  console.timeEnd(statusMessage);
-  return res?.status(200).json(resSchema);
-};
-
-module.exports = {
-  sendResponse,
-  sendEmail,
-};

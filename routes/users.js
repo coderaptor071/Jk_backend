@@ -6,12 +6,11 @@ const multer = require("multer");
 const productModel = require("../models/products.js");
 const fs = require("fs");
 const path = require('path');
-const { Buffer } = require("node:buffer");
 const { sendEmail } = require('../utils/HelperFunctions.js')
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads");
+    cb(null, "tmp");
   },
   filename: (req, file, cb) => {
     if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
@@ -49,7 +48,7 @@ route.post("/saveProduct", upload.single("productImage"), async (req, res) => {
   const { name, company, price, description, category, shipping } = req.body
   try {
 
-    const imgPath = path.join(__dirname + '../' + '../' + '/uploads/' + req.file.filename)
+    const imgPath = path.join(__dirname + '../' + '../' + '/tmp/' + req.file.filename)
     let tmp = {
       data: fs.readFileSync(imgPath),
       contentType: "image/png",
