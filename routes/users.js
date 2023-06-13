@@ -48,14 +48,17 @@ route.post("/saveProduct", upload.single("productImage"), async (req, res) => {
   const { name, company, price, description, category, shipping } = req.body
   try {
     console.log("__dirname-------------->imp", __dirname)
+    console.log("REQ.FILE.PATH-------------->imp", req.file.path)
     let imgPath = path.join(__dirname + '../' + '/tmp/' + req.file.filename)
     console.log("imgPath11111111", imgPath)
-    imgPath = path.join(__dirname + '../' + '../' + '/tmp/' + req.file.filename)
-    console.log("imgPath222222222222", imgPath)
+
     imgPath = path.join(__dirname + '/tmp/' + req.file.filename)
     console.log("imgPath3333333", imgPath)
     imgPath = path.join(__dirname + '../' + '../' + '../' + '/tmp/' + req.file.filename)
     console.log("imgPath44444444444", imgPath)
+    imgPath = path.join(__dirname + '../' + '../' + '/tmp/' + req.file.filename)
+
+    console.log("imgPath222222222222", imgPath)
     let tmp = {
       data: fs.readFileSync(imgPath),
       contentType: "image/png",
