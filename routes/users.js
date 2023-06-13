@@ -60,7 +60,7 @@ route.post("/saveProduct", upload.single("productImage"), async (req, res) => {
 
     console.log("imgPath222222222222", imgPath)
     let tmp = {
-      data: fs.readFileSync(imgPath),
+      data: fs.readFileSync(path.resolve(__dirname, req.file.path)),
       contentType: "image/png",
     }
     const temp = await productModel.find({ name: name, price: price })
