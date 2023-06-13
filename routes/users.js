@@ -47,8 +47,8 @@ route.get("/singleProduct", async (req, res) => {
 route.post("/saveProduct", upload.single("productImage"), async (req, res) => {
   const { name, company, price, description, category, shipping } = req.body
   try {
-    console.log("__dirname-------------->imp", __dirname)
-    console.log("REQ.FILE.PATH-------------->imp", req.file.path)
+    // console.log("__dirname-------------->imp", __dirname)
+    // console.log("REQ.FILE.PATH-------------->imp", req.file.path)
     let imgPath = path.join(__dirname + '../' + '../' + '/uploads/' + req.file.filename)
     // console.log("imgPath11111111", imgPath)
 
