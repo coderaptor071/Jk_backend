@@ -10,7 +10,7 @@ const { sendEmail } = require('../utils/HelperFunctions.js')
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, __dirname + '../' + '/tmp/');
+    cb(null, 'tmp');
   },
   filename: (req, file, cb) => {
     if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
@@ -47,7 +47,7 @@ route.get("/singleProduct", async (req, res) => {
 route.post("/saveProduct", upload.single("productImage"), async (req, res) => {
   const { name, company, price, description, category, shipping } = req.body
   try {
-    console.log("__dirname", __dirname)
+    console.log("__dirname-------------->imp", __dirname)
     const imgPath = path.join(__dirname + '../' + '../' + '/tmp/' + req.file.filename)
     console.log("imgPath", imgPath)
     let tmp = {
@@ -89,7 +89,7 @@ route.post("/editProduct", upload.single("productImage"), async (req, res) => {
     const id = req.query.id
     let tmp = null;
     if (req.file) {
-      const imgPath = path.join(__dirname + '../' + '../' + '../' + '/tmp/' + req.file.filename)
+      const imgPath = path.join(__dirname + '../' + '../' + '/tmp/' + req.file.filename)
       tmp = {
         data: fs.readFileSync(imgPath),
         contentType: "image/png",
