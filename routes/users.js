@@ -47,8 +47,9 @@ route.get("/singleProduct", async (req, res) => {
 route.post("/saveProduct", upload.single("productImage"), async (req, res) => {
   const { name, company, price, description, category, shipping } = req.body
   try {
-
+    console.log("__dirname", __dirname)
     const imgPath = path.join(__dirname + '../' + '../' + '/tmp/' + req.file.filename)
+    console.log("imgPath", imgPath)
     let tmp = {
       data: fs.readFileSync(imgPath),
       contentType: "image/png",
@@ -88,7 +89,7 @@ route.post("/editProduct", upload.single("productImage"), async (req, res) => {
     const id = req.query.id
     let tmp = null;
     if (req.file) {
-      const imgPath = path.join(__dirname + '../' + '../' + '../' + '/uploads/' + req.file.filename)
+      const imgPath = path.join(__dirname + '../' + '../' + '../' + '/tmp/' + req.file.filename)
       tmp = {
         data: fs.readFileSync(imgPath),
         contentType: "image/png",
