@@ -10,7 +10,7 @@ const { sendEmail } = require('../utils/HelperFunctions.js')
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, __dirname + '../' + '../' + '/tmp/');
+    cb(null, __dirname + '../' + '../' + '/tmp');
   },
   filename: (req, file, cb) => {
     if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
