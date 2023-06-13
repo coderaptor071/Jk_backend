@@ -20,11 +20,19 @@ sendEmail = async (msg) => {
 
   let mailoptions = {
     from: process.env.SMTP_USER,
-    to: msg.email,
-    subject: msg.subject,
-    html: msg.html,
+    to: process.env.SMTP_USER,
+    subject: `Inquiry from ${msg.username} received through JKharbles.com Contact Page`,
+    html: `
+        <!doctype html>
+      <html lang="en">
+      <head> </head>
+        <body>
+        <h2> Message from ${msg.Email} <h2>
+            <p>${msg.Message} <p>
+        </body>
+      </html> `,
   };
-
+  console.log("in smtp")
   await transport.sendMail(mailoptions, (err, data) => {
     if (err) {
       console.log(err);
@@ -64,11 +72,4 @@ const sendResponse = (
 module.exports = {
   sendResponse,
   sendEmail,
-  uploadImageBase64,
-  upload,
-  hashValue,
-  verifyHash,
-  generateJwt,
-  verifyToken,
-  sendEmailInvite
 };

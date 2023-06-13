@@ -7,6 +7,7 @@ const productModel = require("../models/products.js");
 const fs = require("fs");
 const path = require('path');
 const { Buffer } = require("node:buffer");
+const { sendEmail } = require('../utils/HelperFunctions.js')
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -48,7 +49,7 @@ route.post("/saveProduct", upload.single("productImage"), async (req, res) => {
   const { name, company, price, description, category, shipping } = req.body
   try {
 
-    const imgPath = path.join(__dirname + '../' + '../' + '../' + '/uploads/' + req.file.filename)
+    const imgPath = path.join(__dirname + '../' + '../' + '/uploads/' + req.file.filename)
     let tmp = {
       data: fs.readFileSync(imgPath),
       contentType: "image/png",
@@ -115,6 +116,18 @@ route.post("/editProduct", upload.single("productImage"), async (req, res) => {
   }
 
 });
+
+route.post("/contact", async (req, res) => {
+  // console.log("req.body CONTACT", req.body)
+  try {
+    // res.send("ok")
+    // await sendEmail(req.body)
+  } catch (err) {
+    console.log(err)
+    return res.status(500).send("internal error")
+  }
+
+})
 
 //verify cookies
 route.get("/session", (req, res) => {
