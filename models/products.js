@@ -24,7 +24,7 @@ const productsSchema = mongoose.Schema({
         type: Boolean,
         default: true,
     },
-    shipping: {
+    stock: {
         type: Number,
         default: 0,
     },

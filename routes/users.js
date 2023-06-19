@@ -45,7 +45,7 @@ route.get("/singleProduct", async (req, res) => {
   }
 })
 route.post("/saveProduct", upload.single("productImage"), async (req, res) => {
-  const { name, company, price, description, category, shipping } = req.body
+  const { name, company, price, description, stock, shipping } = req.body
   try {
     // console.log("__dirname-------------->imp", __dirname)
     // console.log("REQ.FILE.PATH-------------->imp", req.file.path)
@@ -71,7 +71,7 @@ route.post("/saveProduct", upload.single("productImage"), async (req, res) => {
     // console.log("temp", name)
     if (temp.length < 1) {
       await productModel.create({
-        name: name, price: price, description: description, img: tmp
+        name: name, price: price, description: description, img: tmp, stock: stock
       })
       return res.status(201).send("Saved Successfully")
     }
@@ -85,7 +85,11 @@ route.post("/saveProduct", upload.single("productImage"), async (req, res) => {
 })
 route.get('/allProducts', async (req, res) => {
   try {
-
+    const num = req.query.num
+    if (num) {
+      const allData = await productModel.find().sort({ createdAt: -1 }).limit(num)
+      return res.json(allData)
+    }
     const allData = await productModel.find()
     res.json(allData)
   } catch (err) {
@@ -94,7 +98,7 @@ route.get('/allProducts', async (req, res) => {
 })
 route.post("/editProduct", upload.single("productImage"), async (req, res) => {
   try {
-    const { name, price, description } = req.body
+    const { name, price, description, stock } = req.body
     const id = req.query.id
     let tmp = null;
     if (req.file) {
@@ -109,12 +113,12 @@ route.post("/editProduct", upload.single("productImage"), async (req, res) => {
     }
     if (tmp) {
       await productModel.findOneAndUpdate({ _id: id }, {
-        name: name, price: price, description: description, img: tmp
+        name: name, price: price, description: description, img: tmp, stock: stock
       })
     }
     else {
       const updatedDoc = await productModel.findOneAndUpdate({ _id: id }, {
-        name: name, price: price, description: description
+        name: name, price: price, description: description, stock: stock
       }, { new: true })
     }
     console.log("Product Edited")
