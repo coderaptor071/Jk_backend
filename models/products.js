@@ -9,7 +9,14 @@ const productsSchema = mongoose.Schema({
         type: String,
         trim: true,
     },
+    category: {
+        type: String,
+        trim: true,
+    },
     price: {
+        type: Number
+    },
+    shipping: {
         type: Number
     },
     description: {

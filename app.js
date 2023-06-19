@@ -18,7 +18,7 @@ String.prototype.elog = function (data) {
   return console.log(chalk.bgRed(data));
 };
 const l = "";
-l.log(config.mongoURI)
+// l.log(config.mongoURI)
 mongoose.set("strictQuery", true);
 mongoose
   .connect(config.mongoURI, {

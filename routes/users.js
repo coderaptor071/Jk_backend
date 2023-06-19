@@ -45,20 +45,11 @@ route.get("/singleProduct", async (req, res) => {
   }
 })
 route.post("/saveProduct", upload.single("productImage"), async (req, res) => {
-  const { name, company, price, description, stock, shipping } = req.body
+  let { name, company, price, description, stock, shipping } = req.body
   try {
     // console.log("__dirname-------------->imp", __dirname)
     // console.log("REQ.FILE.PATH-------------->imp", req.file.path)
     let imgPath = path.join(__dirname + '../' + '../' + '/uploads/' + req.file.filename)
-    // console.log("imgPath11111111", imgPath)
-
-    // imgPath = path.join(__dirname + '/tmp/' + req.file.filename)
-    // console.log("imgPath3333333", imgPath)
-    // imgPath = path.join(__dirname + '../' + '../' + '../' + '/tmp/' + req.file.filename)
-    // console.log("imgPath44444444444", imgPath)
-    // imgPath = path.join(__dirname + '../' + '../' + '/tmp/' + req.file.filename)
-
-    // console.log("imgPath222222222222", imgPath)
     let tmp = {
       data: fs.readFileSync(imgPath),
       contentType: "image/png",
@@ -68,11 +59,17 @@ route.post("/saveProduct", upload.single("productImage"), async (req, res) => {
     if (name == undefined) {
       return res.send("product information is required")
     }
-    // console.log("temp", name)
+    shipping = shipping ? shipping : 0
     if (temp.length < 1) {
       await productModel.create({
-        name: name, price: price, description: description, img: tmp, stock: stock
+        name: name, price: price, description: description, img: tmp, stock: stock, shipping: shipping
       })
+      fs.unlink(imgPath, (err) => {
+        if (err) {
+          console.error(err.message);
+          return
+        }
+      });
       return res.status(201).send("Saved Successfully")
     }
     else {
@@ -98,9 +95,10 @@ route.get('/allProducts', async (req, res) => {
 })
 route.post("/editProduct", upload.single("productImage"), async (req, res) => {
   try {
-    const { name, price, description, stock } = req.body
+    let { name, price, description, stock, shipping } = req.body
     const id = req.query.id
     let tmp = null;
+    shipping = shipping ? shipping : 0
     if (req.file) {
       const imgPath = path.join(__dirname + '../' + '../' + '/tmp/' + req.file.filename)
       tmp = {
@@ -113,12 +111,18 @@ route.post("/editProduct", upload.single("productImage"), async (req, res) => {
     }
     if (tmp) {
       await productModel.findOneAndUpdate({ _id: id }, {
-        name: name, price: price, description: description, img: tmp, stock: stock
+        name: name, price: price, description: description, img: tmp, stock: stock, shipping: shipping
       })
+      fs.unlink(imgPath, (err) => {
+        if (err) {
+          console.error(err.message);
+          return
+        }
+      });
     }
     else {
       const updatedDoc = await productModel.findOneAndUpdate({ _id: id }, {
-        name: name, price: price, description: description, stock: stock
+        name: name, price: price, description: description, stock: stock, shipping: shipping
       }, { new: true })
     }
     console.log("Product Edited")
@@ -133,8 +137,8 @@ route.post("/editProduct", upload.single("productImage"), async (req, res) => {
 route.post("/contact", async (req, res) => {
   // console.log("req.body CONTACT", req.body)
   try {
-    // res.send("ok")
-    // await sendEmail(req.body)
+    await sendEmail(req.body)
+    res.status(200)
   } catch (err) {
     console.log(err)
     return res.status(500).send("internal error")

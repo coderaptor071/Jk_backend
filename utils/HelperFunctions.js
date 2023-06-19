@@ -8,18 +8,17 @@ const l = ''
 sendEmail = async (msg) => {
   let transport = mailer.createTransport({
     host: process.env.SMTP_HOST,
-    service: process.env.SMTP_SERVICE,
     port: process.env.SMTP_PORT,
     from: process.env.SMTP_FROM,
     useAuth: {
-      user: process.env.SMTP_USER,
+      user: process.env.SMTP_FROM,
       pass: process.env.SMTP_PASS,
     },
     secure: true,
   });
 
   let mailoptions = {
-    from: process.env.SMTP_USER,
+    from: process.env.SMTP_FROM,
     to: process.env.SMTP_USER,
     subject: `Inquiry from ${msg.username} received through JKharbles.com Contact Page`,
     html: `
@@ -44,4 +43,5 @@ sendEmail = async (msg) => {
   });
 };
 
+module.exports = { sendEmail };
 
