@@ -10,16 +10,18 @@ sendEmail = async (msg) => {
     host: process.env.SMTP_HOST,
     port: process.env.SMTP_PORT,
     from: process.env.SMTP_FROM,
-    secure: true,
+    auth: {
+      user: process.env.SMTP_FROM,
+      pass: "jkExport@123#",
+    },
+    secure: false,
+    requireTLS: true,
     secureConnection: false,
     tls: {
       ciphers: 'SSLv3',
       rejectUnauthorized: false
     },
-    auth: {
-      user: process.env.SMTP_FROM,
-      pass: "jkExport@123#",
-    },
+
   }
   );
   // console.log("transport", transport)
