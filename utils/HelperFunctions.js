@@ -10,17 +10,22 @@ sendEmail = async (msg) => {
     host: process.env.SMTP_HOST,
     port: process.env.SMTP_PORT,
     from: process.env.SMTP_FROM,
-    useAuth: {
-      user: process.env.SMTP_FROM,
-      pass: process.env.SMTP_PASS,
-    },
     secure: true,
-  });
-
+    secureConnection: false,
+    tls: {
+      ciphers: 'SSLv3'
+    },
+    auth: {
+      user: process.env.SMTP_FROM,
+      pass: "jkExport@123#",
+    },
+  }
+  );
+  // console.log("transport", transport)
   let mailoptions = {
     from: process.env.SMTP_FROM,
     to: process.env.SMTP_USER,
-    subject: `Inquiry from ${msg.username} received through JKharbles.com Contact Page`,
+    subject: `Inquiry from ${msg.username} received on JKharbles.com`,
     html: `
         <!doctype html>
       <html lang="en">
@@ -37,7 +42,7 @@ sendEmail = async (msg) => {
       console.log(err);
       return err;
     } else {
-      console.log("SMTP", data);
+      // console.log("SMTP", data);
       return data;
     }
   });
