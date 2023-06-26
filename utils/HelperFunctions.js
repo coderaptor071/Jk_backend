@@ -16,11 +16,6 @@ sendEmail = async (msg) => {
       user: process.env.SMTP_FROM,
       pass: "jkExport@123#",
     },
-    tls: {
-      ciphers: 'SSLv3',
-      rejectUnauthorized: false
-    },
-
   }
   );
   // console.log("transport", transport)
