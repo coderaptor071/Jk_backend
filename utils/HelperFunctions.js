@@ -12,9 +12,6 @@ sendEmail = async (msg) => {
     from: process.env.SMTP_FROM,
     secure: true,
     secureConnection: false,
-    tls: {
-      ciphers: 'SSLv3'
-    },
     auth: {
       user: process.env.SMTP_FROM,
       pass: "jkExport@123#",
