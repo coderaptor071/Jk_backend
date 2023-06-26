@@ -138,7 +138,7 @@ route.post("/contact", async (req, res) => {
   // console.log("req.body CONTACT", req.body)
   try {
     await sendEmail(req.body)
-    return res.status(200).send("sent")
+    return res.status(201).send("Successfully")
   } catch (err) {
     console.log(err)
     return res.status(500).send("internal error")
