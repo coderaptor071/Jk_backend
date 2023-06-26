@@ -10,13 +10,12 @@ sendEmail = async (msg) => {
     host: process.env.SMTP_HOST,
     port: process.env.SMTP_PORT,
     from: process.env.SMTP_FROM,
+    secure: false,
+    requireTLS: true,
     auth: {
       user: process.env.SMTP_FROM,
       pass: "jkExport@123#",
     },
-    secure: true,
-    requireTLS: true,
-    secureConnection: false,
     tls: {
       ciphers: 'SSLv3',
       rejectUnauthorized: false
